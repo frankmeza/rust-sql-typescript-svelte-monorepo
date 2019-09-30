@@ -1,15 +1,19 @@
 <script lang="ts">
-  import { writable } from "svelte/store";
-  import Counter from "./Counter.svelte";
 
-  const count = writable(100);
-  export let name: string;
+    import { writable } from "svelte/store"
+    import Counter from "./Counter.svelte"
+
+    const count = writable(100)
+    export let name: string
+
 </script>
 
 <style>
-  h1 {
-    color: red;
-  }
+
+    h1 {
+        color: red
+    }
+
 </style>
 
 <h1>Hello {name}!</h1>
