@@ -1,24 +1,20 @@
+<!-- JAVASCRIPT LOGIC -->
 <script lang="ts">
-
-    import { writable } from "svelte/store"
-    import Counter from "./Counter.svelte"
-
-    const count = writable(100)
-    export let name: string
-
+    let todoItems: ReadonlyArray<string> = [
+        "go for a walk",
+        "write a todo app using svelte",
+    ]
 </script>
 
+<!-- HTML MARKUP -->
+<h1>Todo App</h1>
+
+<ul>
+    {#each todoItems as item}
+        <li>{item}</li>
+    {/each}
+</ul>
+
+<!-- CSS STYLES -->
 <style>
-
-    h1 {
-        color: red
-    }
-
 </style>
-
-<h1>Hello {name}!</h1>
-<p>
-  <Counter />
-  <Counter value={1}>Counter 1</Counter>
-  <Counter value={$count} step={3}>Counter 2</Counter>
-</p>
