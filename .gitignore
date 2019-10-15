@@ -1,3 +1,6 @@
+# inside of server/
+server/target
+
 .rpt2_cache
 build
 
