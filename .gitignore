@@ -1,4 +1,4 @@
-# inside of server/
+# inside of server/ (rust)
 server/target
 
 .rpt2_cache
