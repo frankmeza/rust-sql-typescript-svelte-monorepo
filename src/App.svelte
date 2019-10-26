@@ -1,11 +1,12 @@
 <!-- JAVASCRIPT LOGIC -->
 <script lang="ts">
-    const NEW_ITEM = "Adding a new item: "
-    const SUBMISSION = "submit new item"
+    let NEW_ITEM = "Adding a new item: "
+    let SUBMISSION = "submit new item"
 
-    const handleSubmit = () => {
+    let handleSubmit = () => {
         todoItems = [...todoItems, newItem]
         newItem = ""
+        getFromServer()
     }
 
     let todoItems: ReadonlyArray<string> = [
@@ -14,6 +15,15 @@
     ]
 
     let newItem: string = ""
+
+    let list: string = ""
+
+    async function getFromServer() {
+        let res = await fetch("http://localhost:8088/again")
+        let json = await res.json()
+
+        list = json
+    }
 </script>
 
 <!-- HTML MARKUP -->
@@ -25,9 +35,13 @@
     {/each}
 </ul>
 
+<p>{JSON.stringify(list)}</p>
+
 <h3>{NEW_ITEM} {newItem}</h3>
 <textarea bind:value={newItem}></textarea>
 <button on:click={handleSubmit}>{SUBMISSION}</button>
+
+<!-- <p>{list}</p> -->
 
 <!-- CSS STYLES -->
 <style>
