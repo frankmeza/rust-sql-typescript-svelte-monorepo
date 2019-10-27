@@ -1,8 +1,6 @@
 use actix_cors::Cors;
 use actix_web::{http::header, web, App, HttpResponse, HttpServer, Responder};
 use postgres::{Connection, TlsMode};
-#[macro_use()]
-extern crate serde_derive;
 use serde_derive::{Deserialize, Serialize};
 
 mod queries;
