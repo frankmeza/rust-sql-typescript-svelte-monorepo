@@ -1,50 +1,29 @@
 <script lang="ts">
-    let NEW_ITEM = "Adding a new item: "
-    let SUBMISSION = "submit new item"
+    import { Person } from "./core"
 
-    let handleSubmit = () => {
-        todoItems = [...todoItems, newItem]
-        newItem = ""
-        getFromServer()
-    }
+    let people: Array<Person> = []
 
-    let todoItems: ReadonlyArray<string> = [
-        "go for a walk",
-        "write a todo app using svelte"
-    ]
+    async function getPeople() {
+        let res = await fetch("http://localhost:8088/people")
 
-    let newItem: string = ""
-    let people: string = ""
+        if (!res.ok) {
+            console.log(res.statusText)
+            return null
+        }
 
-    async function getFromServer() {
-        let res = await fetch("http://localhost:8088/again")
         let json = await res.json()
-
         people = json
     }
 </script>
 
-<style>
+<h1>People Database1</h1>
 
-</style>
-
-<!-- JAVASCRIPT LOGIC -->
-<!-- HTML MARKUP -->
-<h1>Todo App</h1>
-
-<ul>
-  {#each todoItems as item}
-    <li>{item}</li>
-  {/each}
-</ul>
+<button on:click={getPeople}>GET /people</button>
 
 <ul>
   {#each people as person}
-    <li>{person.name}</li>
+    <li> id: {person.id}, name: {person.name}</li>
   {/each}
 </ul>
-<p>{JSON.stringify(people)}</p>
 
-<h3>{NEW_ITEM} {newItem}</h3>
-<textarea bind:value={newItem} />
-<button on:click={handleSubmit}>{SUBMISSION}</button>
+<style></style>
