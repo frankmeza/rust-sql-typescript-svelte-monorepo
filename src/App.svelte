@@ -1,29 +1,38 @@
 <script lang="ts">
     import { Person } from "./core"
+    import { getPeople } from "./app_utils"
 
+    // constants
+    const BUTTON_TEXT = "GET /people"
+
+    // variables
     let people: Array<Person> = []
 
-    async function getPeople() {
-        let res = await fetch("http://localhost:8088/people")
+    // handlers
+    const handleClick = async () => {
+        people = await getPeople()
+    }
 
-        if (!res.ok) {
-            console.log(res.statusText)
-            return null
-        }
-
-        let json = await res.json()
-        people = json
+    // render methods
+    const renderIdAndName = (p: Person): string => {
+        return `{ id: ${p.id}, name: ${p.name} }`
     }
 </script>
 
-<h1>People Database1</h1>
+<h1>People Database</h1>
 
-<button on:click={getPeople}>GET /people</button>
+<button on:click={handleClick}>
+    {BUTTON_TEXT}
+</button>
 
 <ul>
   {#each people as person}
-    <li> id: {person.id}, name: {person.name}</li>
+    <li class="people" id={`${person.id}`} >{renderIdAndName(person)}</li>
   {/each}
 </ul>
 
-<style></style>
+<style>
+    .people {
+        background-color: aliceblue;
+    }
+</style>
