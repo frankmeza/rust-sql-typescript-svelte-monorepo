@@ -1,24 +1,17 @@
 <script lang="ts">
     import { Person } from "./core"
+    import { getPeople } from "./app_utils"
 
     let people: Array<Person> = []
 
-    async function getPeople() {
-        let res = await fetch("http://localhost:8088/people")
-
-        if (!res.ok) {
-            console.log(res.statusText)
-            return null
-        }
-
-        let json = await res.json()
-        people = json
+    const handleClick = async () => {
+        people = await getPeople()
     }
 </script>
 
-<h1>People Database1</h1>
+<h1>People Database</h1>
 
-<button on:click={getPeople}>GET /people</button>
+<button on:click={handleClick}>GET /people</button>
 
 <ul>
   {#each people as person}
