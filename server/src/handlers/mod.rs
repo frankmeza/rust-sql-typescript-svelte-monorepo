@@ -10,9 +10,9 @@ pub struct Person {
 
 pub fn fetch_people_list(conn: Connection) -> Vec<Person> {
     let mut people = Vec::new();
-    let query = queries::get_name_id_people();
+    let q = queries::get_name_id_people();
 
-    for row in &conn.query(&query, &[]).unwrap() {
+    for row in &conn.query(&q, &[]).expect("error on fetch_people_list") {
         let person = Person {
             id: row.get(0),
             name: row.get(1),
@@ -30,9 +30,9 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
         name: String::from(""),
     };
 
-    let query = queries::get_name_id_person(id);
+    let q = queries::get_name_id_person(id);
 
-    for row in &conn.query(&query, &[]).unwrap() {
+    for row in &conn.query(&q, &[]).expect("error on fetch_person_by_id") {
         let p = Person {
             id: row.get(0),
             name: row.get(1),
@@ -45,16 +45,16 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
 }
 
 pub fn create_person(conn: Connection, id: &str, name: &str) {
-    let query = queries::create_person(id, name);
-    &conn.execute(&query, &[]).unwrap();
+    let q = queries::create_person(id, name);
+    &conn.execute(&q, &[]).expect("error on create_person");
 }
 
 pub fn update_person_by_id(conn: Connection, id: &str, name: &str) {
-    let query = queries::update_person_by_id(id, name);
-    &conn.execute(&query, &[]).unwrap();
+    let q = queries::update_person_by_id(id, name);
+    &conn.execute(&q, &[]).expect("error on update_person_by_id");
 }
 
 pub fn delete_person_by_id(conn: Connection, id: &str) {
-    let query = queries::delete_person_by_id(id);
-    &conn.query(&query, &[]).unwrap();
+    let q = queries::delete_person_by_id(id);
+    &conn.query(&q, &[]).expect("error on delete_person_by_id");
 }
