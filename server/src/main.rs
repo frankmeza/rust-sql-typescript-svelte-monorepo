@@ -4,6 +4,7 @@ use postgres::{Connection, TlsMode};
 // use actix_web_actors::ws;
 
 mod handlers;
+mod models;
 mod queries;
 
 fn get_connection() -> Connection {
@@ -18,7 +19,7 @@ fn get_people_list() -> impl Responder {
     HttpResponse::Ok().json(people)
 }
 
-fn create_person(person_json: web::Json<handlers::Person>) -> impl Responder {
+fn create_person(person_json: web::Json<models::Person>) -> impl Responder {
     let conn = get_connection();
     let id = person_json.id.to_string();
     let name = &person_json.name;
@@ -35,7 +36,7 @@ fn get_person_by_id(req: HttpRequest) -> impl Responder {
     HttpResponse::Ok().json(person)
 }
 
-fn update_person_by_id(person_json: web::Json<handlers::Person>) -> impl Responder {
+fn update_person_by_id(person_json: web::Json<models::Person>) -> impl Responder {
     let conn = get_connection();
     let id = person_json.id.to_string();
     let updated_name = &person_json.name;
@@ -53,8 +54,17 @@ fn delete_person_by_id(req: HttpRequest) -> impl Responder {
 }
 
 fn main() {
+    env_logger::init();
+
+    // HttpServer::new(|| {
+    //     App::new()
+    // enable logger
     HttpServer::new(|| {
         App::new()
+            // websocket route
+            .service(web::resource("/ws/").route(web::get().to(ws_index)))
+            // static files
+            .service(fs::Files::new("/", "static/").index_file("index.html"))
             .wrap(
                 Cors::new()
                     .allowed_origin("http://localhost:10001")

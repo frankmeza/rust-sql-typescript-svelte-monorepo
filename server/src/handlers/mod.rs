@@ -1,12 +1,5 @@
-use crate::queries;
+use crate::{models::Person, queries};
 use postgres::Connection;
-use serde_derive::{Deserialize, Serialize};
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Person {
-    pub id: i32,
-    pub name: String,
-}
 
 pub fn fetch_people_list(conn: Connection) -> Vec<Person> {
     let mut people = Vec::new();
