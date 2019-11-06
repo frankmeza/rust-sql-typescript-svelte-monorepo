@@ -1,23 +1,22 @@
 use actix_cors::Cors;
 use actix_web::{
     http::header,
-    // middleware,
     web,
     App,
-    // Error,
     HttpRequest,
     HttpResponse,
     HttpServer,
     Responder,
 };
 use postgres::{Connection, TlsMode};
-// use actix::prelude::*;
-use actix_files as fs;
-// use actix_web_actors::ws;
 
 mod handlers;
 mod models;
 mod queries;
+mod ws_server;
+
+extern crate env_logger;
+extern crate ws;
 
 fn get_connection() -> Connection {
     Connection::connect("postgres://postgres@localhost:5432", TlsMode::None)
@@ -67,6 +66,7 @@ fn delete_person_by_id(req: HttpRequest) -> impl Responder {
 
 fn main() {
     env_logger::init();
+    ws_server::start();
 
     HttpServer::new(|| {
         App::new()
