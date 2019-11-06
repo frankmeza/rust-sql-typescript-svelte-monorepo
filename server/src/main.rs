@@ -1,6 +1,18 @@
 use actix_cors::Cors;
-use actix_web::{http::header, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
+use actix_web::{
+    http::header,
+    // middleware,
+    web,
+    App,
+    // Error,
+    HttpRequest,
+    HttpResponse,
+    HttpServer,
+    Responder,
+};
 use postgres::{Connection, TlsMode};
+// use actix::prelude::*;
+use actix_files as fs;
 // use actix_web_actors::ws;
 
 mod handlers;
@@ -56,15 +68,8 @@ fn delete_person_by_id(req: HttpRequest) -> impl Responder {
 fn main() {
     env_logger::init();
 
-    // HttpServer::new(|| {
-    //     App::new()
-    // enable logger
     HttpServer::new(|| {
         App::new()
-            // websocket route
-            .service(web::resource("/ws/").route(web::get().to(ws_index)))
-            // static files
-            .service(fs::Files::new("/", "static/").index_file("index.html"))
             .wrap(
                 Cors::new()
                     .allowed_origin("http://localhost:10001")
