@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Person } from "./core"
-    import { getPeople } from "./async_app_utils"
+    import { getPeople } from "./app_utils"
 
     // constants
     const PEOPLE_DATABASE = "People Database"
