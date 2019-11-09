@@ -15,6 +15,7 @@ pub fn get_connection() -> Connection {
     Connection::connect("postgres://postgres@localhost:5432", TlsMode::None)
         .expect("wut happen postgres")
 }
+
 fn start_ws() {
     ws_server::start();
 }
@@ -52,3 +53,6 @@ fn main() {
     println!("Server got here");
     println!("Server started");
 }
+
+// .route("/ws/", web::get().to(ws_server::start))
+// // .service(web::resource("/ws").to(ws_server::start))

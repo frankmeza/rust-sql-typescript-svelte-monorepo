@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { ws } from "./ws_client"
     import { Person } from "./core"
     import { getPeople } from "./app_utils"
 
@@ -12,6 +13,9 @@
     // async handlers
     const handleClick = async () => {
         people = await getPeople()
+        const whatItIs = { hellaLit: true }
+
+        ws.send(JSON.stringify(whatItIs))
     }
 
     // sync utils
