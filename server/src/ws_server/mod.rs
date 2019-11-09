@@ -27,7 +27,7 @@ fn index(req: HttpRequest, stream: web::Payload) -> Result<HttpResponse, Error> 
     resp
 }
 
-fn main() {
+pub fn start() {
     HttpServer::new(|| App::new().route("/ws/", web::get().to(index)))
         .bind("127.0.0.1:8088")
         .unwrap()
