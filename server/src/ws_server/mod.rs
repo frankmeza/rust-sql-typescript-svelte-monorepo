@@ -3,14 +3,14 @@ use actix_web::{web, Error, HttpRequest, HttpResponse};
 use actix_web_actors::ws;
 
 /// Define http actor
-struct MyWs;
+struct WebSocket;
 
-impl Actor for MyWs {
+impl Actor for WebSocket {
     type Context = ws::WebsocketContext<Self>;
 }
 
 /// Handler for ws::Message message
-impl StreamHandler<ws::Message, ws::ProtocolError> for MyWs {
+impl StreamHandler<ws::Message, ws::ProtocolError> for WebSocket {
     fn handle(&mut self, msg: ws::Message, ctx: &mut Self::Context) {
         match msg {
             ws::Message::Ping(msg) => ctx.pong(&msg),
@@ -22,7 +22,7 @@ impl StreamHandler<ws::Message, ws::ProtocolError> for MyWs {
 }
 
 pub fn start(req: HttpRequest, stream: web::Payload) -> Result<HttpResponse, Error> {
-    let resp = ws::start(MyWs {}, &req, stream);
+    let resp = ws::start(WebSocket {}, &req, stream);
     println!("{:?}", resp);
     resp
 }

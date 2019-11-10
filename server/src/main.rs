@@ -13,14 +13,12 @@ extern crate ws;
 
 pub fn get_connection() -> Connection {
     Connection::connect("postgres://postgres@localhost:5432", TlsMode::None)
-        .expect("wut happen postgres")
+        .expect("ERROR: connecting to postgres")
 }
 
 fn main() {
     env_logger::init();
-
-    println!("Server started");
-    // start_ws();
+    println!("Server started on 127.0.0.1:8088");
 
     HttpServer::new(|| {
         App::new()
@@ -32,7 +30,7 @@ fn main() {
                     .allowed_header(header::CONTENT_TYPE)
                     .max_age(3600),
             )
-            .route("/ws/", web::get().to(ws_server::start))
+            .service(web::resource("/ws/").route(web::get().to(ws_server::start)))
             .route("/people", web::get().to(responders::get_people_list))
             .route("/people", web::post().to(responders::create_person))
             .route("/people", web::put().to(responders::update_person_by_id))
@@ -47,9 +45,5 @@ fn main() {
     .run()
     .unwrap();
 
-    println!("Server got here");
-    println!("Server started");
+    println!("Server stopped");
 }
-
-// .route("/ws/", web::get().to(ws_server::start))
-// // .service(web::resource("/ws").to(ws_server::start))

@@ -21,7 +21,7 @@ pub fn create_person(person_json: web::Json<models::Person>) -> impl Responder {
 
 pub fn get_person_by_id(req: HttpRequest) -> impl Responder {
     let conn = get_connection();
-    let id = req.match_info().get("id").expect("wut happen get id");
+    let id = req.match_info().get("id").expect("ERROR: get id");
     let person = handlers::fetch_person_by_id(conn, id);
 
     HttpResponse::Ok().json(person)
@@ -38,7 +38,7 @@ pub fn update_person_by_id(person_json: web::Json<models::Person>) -> impl Respo
 
 pub fn delete_person_by_id(req: HttpRequest) -> impl Responder {
     let conn = get_connection();
-    let id = req.match_info().get("id").expect("wut happen delete id");
+    let id = req.match_info().get("id").expect("ERROR: delete id");
 
     handlers::delete_person_by_id(conn, id);
     HttpResponse::NoContent()
