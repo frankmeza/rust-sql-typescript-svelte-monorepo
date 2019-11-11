@@ -1,7 +1,8 @@
 <script lang="ts">
     import { ws } from "./ws_client"
     import { Person } from "./core"
-    import { getPeople } from "./app_utils"
+    import { getPeople } from "utils/app_utils"
+    import { mailbox } from "./stores"
 
     // constants
     const PEOPLE_DATABASE = "People Database"
@@ -9,6 +10,8 @@
 
     // variables
     let people: Array<Person> = []
+    let messages = mailbox
+    debugger
 
     // async handlers
     const handleClick = async () => {
@@ -25,6 +28,10 @@
 </script>
 
 <h1>{PEOPLE_DATABASE}</h1>
+
+<!-- {#if messages.length > 0} -->
+    <!-- <p>{$mailbox}</p> -->
+<!-- {/if} -->
 
 <button on:click={handleClick}>{BUTTON_TEXT}</button>
 

@@ -1,7 +1,7 @@
 import webSocket from "isomorphic-ws"
+import { mailbox } from "./stores"
 
 export const ws = new webSocket("ws://127.0.0.1:8088/ws/")
-export let mailBox: string[] = []
 
 ws.onopen = () => {
 	ws.send(Date.now())
@@ -19,6 +19,6 @@ ws.onmessage = (data: webSocket.MessageEvent) => {
 		? `Roundtrip time: ${Date.now() - parseInt(data.data.toString())} ms`
 		: payload
 
-    console.log(printMsg)
-    mailBox = [...mailBox, printMsg] // todo write to store
+    mailbox.addMsg(printMsg)
+    console.log(mailbox)
 }
