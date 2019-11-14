@@ -2,16 +2,22 @@
     import { ws } from "./ws_client"
     import { Person } from "./core"
     import { getPeople } from "utils/app_utils"
+    // whyyyy 😭
     import { mailbox } from "./stores"
-
+    console.log(mailbox)
     // constants
     const PEOPLE_DATABASE = "People Database"
     const BUTTON_TEXT = "GET /people"
 
     // variables
     let people: Array<Person> = []
-    let messages = mailbox
-    debugger
+    let mail: string[] = []
+
+    // subscriptions to store
+    // mailbox.subscribe(mb => {
+    //     mail = mb;
+    //     // mail = [...mail.messages, newMsg];
+    // })
 
     // async handlers
     const handleClick = async () => {
@@ -27,11 +33,13 @@
     }
 </script>
 
+{@debug mail}
+
 <h1>{PEOPLE_DATABASE}</h1>
 
-<!-- {#if messages.length > 0} -->
-    <!-- <p>{$mailbox}</p> -->
-<!-- {/if} -->
+{#if $mailbox.length > 0}
+    <p>{$mailbox}</p>
+{/if}
 
 <button on:click={handleClick}>{BUTTON_TEXT}</button>
 

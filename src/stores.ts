@@ -1,28 +1,29 @@
 import { readable, writable } from "svelte/store"
 
-interface Mailbox {
-	messages: string[]
-}
+// export interface MailboxInterface {
+//     messages: string[]
+// }
 
-class Mailbox {
-	constructor() {
-		this.messages = []
-	}
-}
+// export class Mailbox {
+//     messages: string[]
 
-const createMailBox = () => {
-	const { subscribe, set, update } = writable(new Mailbox())
+// 	constructor() {
+// 		this.messages = []
+// 	}
+// }
+
+function createMailBox() {
+    // let mailbox = new Mailbox()
+	const { subscribe, set, update } = writable([""])
 
 	const handleAddMsg = (newMsg: string) =>
-		update((mailbox) => ({
-			messages: [...mailbox.messages, newMsg],
-		}))
+		update((mailbox) => [...mailbox, newMsg])
 
     return {
 		subscribe,
 		addMsg: (newMsg: string) => handleAddMsg(newMsg),
 		// getMsg: () => update((n) => n - 1),
-		reset: () => set(new Mailbox()),
+		reset: () => set([""]),
 	}
 }
 
