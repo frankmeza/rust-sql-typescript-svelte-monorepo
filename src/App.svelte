@@ -2,29 +2,28 @@
     import { ws } from "./ws_client"
     import { Person } from "./core"
     import { getPeople } from "utils/app_utils"
-    // whyyyy 😭
-    import { mailbox } from "./stores"
-    console.log(mailbox)
+    import { mailboxStore } from "./stores"
+
     // constants
     const PEOPLE_DATABASE = "People Database"
     const BUTTON_TEXT = "GET /people"
+    const RESET = "reset"
 
     // variables
     let people: Array<Person> = []
-    let mail: string[] = []
-
-    // subscriptions to store
-    // mailbox.subscribe(mb => {
-    //     mail = mb;
-    //     // mail = [...mail.messages, newMsg];
-    // })
 
     // async handlers
     const handleClick = async () => {
         people = await getPeople()
-        const whatItIs = { hellaLit: true }
 
+        // throwaway at some point
+        const whatItIs = { hellaLit: true }
+        mailboxStore.addMsg(JSON.stringify(people))
         ws.send(JSON.stringify(whatItIs))
+    }
+
+    const handleClickReset = () => {
+        mailboxStore.reset()
     }
 
     // sync utils
@@ -33,15 +32,12 @@
     }
 </script>
 
-{@debug mail}
-
 <h1>{PEOPLE_DATABASE}</h1>
 
-{#if $mailbox.length > 0}
-    <p>{$mailbox}</p>
-{/if}
+<p>{$mailboxStore.messages}</p>
 
 <button on:click={handleClick}>{BUTTON_TEXT}</button>
+<button on:click={handleClickReset}>{RESET}</button>
 
 {#if people.length === 0}
     <p>ain't nobody here yet</p>
