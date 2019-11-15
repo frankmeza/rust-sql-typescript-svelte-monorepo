@@ -1,31 +1,27 @@
-import { readable, writable } from "svelte/store"
+import { writable } from "svelte/store"
 
-// export interface MailboxInterface {
-//     messages: string[]
-// }
+class Mailbox {
+    messages: string[]
 
-// export class Mailbox {
-//     messages: string[]
+	constructor() {
+		this.messages = []
+	}
+}
 
-// 	constructor() {
-// 		this.messages = []
-// 	}
-// }
-
-function createMailBox() {
-    // let mailbox = new Mailbox()
-	const { subscribe, set, update } = writable([""])
+const createMailBox = () => {
+	const { subscribe, set, update } = writable(new Mailbox())
 
 	const handleAddMsg = (newMsg: string) =>
-		update((mailbox) => [...mailbox, newMsg])
+		update((mailbox) => {
+            return { messages: [...mailbox.messages, newMsg] }
+        })
 
     return {
 		subscribe,
 		addMsg: (newMsg: string) => handleAddMsg(newMsg),
 		// getMsg: () => update((n) => n - 1),
-		reset: () => set([""]),
+		reset: () => set(new Mailbox()),
 	}
 }
 
-export const mailbox = createMailBox()
-// export const readableMailbox = readable(mailbox, function start()
+export const mailboxStore = createMailBox()
