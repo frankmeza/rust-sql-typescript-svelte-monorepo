@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "style.css",
+  "sources": [
+    "../../src/App.svelte"
+  ],
+  "sourcesContent": [
+    "<script lang=\"ts\">import { ws } from \"./ws_client\";\nimport { getPeople } from \"utils/app_utils\";\nimport { mailboxStore } from \"./stores\";\n// constants\nconst PEOPLE_DATABASE = \"People Database\";\nconst BUTTON_TEXT = \"GET /people\";\nconst RESET = \"reset\";\n// variables\nlet people = [];\n// async handlers\nconst handleClick = async () => {\n    people = await getPeople();\n    // throwaway at some point\n    const whatItIs = { hellaLit: true };\n    mailboxStore.addMsg(JSON.stringify(people));\n    ws.send(JSON.stringify(whatItIs));\n};\nconst handleClickReset = () => {\n    mailboxStore.reset();\n};\n// sync utils\nconst formatListItem = (p) => {\n    return `{ id: ${p.id}, name: ${p.name} }`;\n};\n//# sourceMappingURL=App.svelte.js.map</script>\n\n<h1>{PEOPLE_DATABASE}</h1>\n\n<p>{$mailboxStore.messages}</p>\n\n<button on:click={handleClick}>{BUTTON_TEXT}</button>\n<button on:click={handleClickReset}>{RESET}</button>\n\n{#if people.length === 0}\n    <p>ain't nobody here yet</p>\n{/if}\n\n{#if people.length > 0}\n    <ul>\n    {#each people as person}\n        <li>{formatListItem(person)}</li>\n    {/each}\n    </ul>\n{/if}\n\n<style>\n    h1 {\n        color: brown;\n        font-family: Hasklig;\n    }\n</style>\n"
+  ],
+  "names": [],
+  "mappings": "AA8CI,EAAE,cAAC,CAAC,AACA,KAAK,CAAE,KAAK,CACZ,WAAW,CAAE,OAAO,AACxB,CAAC"
+}
