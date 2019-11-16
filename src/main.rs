@@ -12,7 +12,7 @@ extern crate env_logger;
 extern crate ws;
 
 pub fn get_connection() -> Connection {
-    Connection::connect("postgres://postgres@localhost:5432", TlsMode::None)
+    Connection::connect("postgres://postgres@localhost:5432/people", TlsMode::None)
         .expect("ERROR: connecting to postgres")
 }
 
@@ -31,6 +31,7 @@ fn main() {
                     .max_age(3600),
             )
             .service(web::resource("/ws/").route(web::get().to(ws_server::start)))
+            .route("/health", web::get().to(responders::health_check))
             .route("/people", web::get().to(responders::get_people_list))
             .route("/people", web::post().to(responders::create_person))
             .route("/people", web::put().to(responders::update_person_by_id))
