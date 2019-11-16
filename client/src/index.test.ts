@@ -1,4 +1,4 @@
-import { target } from "./"
+import { target } from "."
 
 describe("Entry Script", () => {
     it("target dom element should contains textContent", () => {
