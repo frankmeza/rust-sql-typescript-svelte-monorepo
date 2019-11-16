@@ -19,7 +19,7 @@ pub fn fetch_people_list(conn: Connection) -> Vec<Person> {
 
 pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
     let mut person = Person {
-        id: 0,
+        id: "".to_string(),
         name: String::from(""),
     };
 

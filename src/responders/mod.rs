@@ -2,6 +2,11 @@ use crate::get_connection;
 use crate::handlers;
 use crate::models;
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
+use uuid::Uuid;
+
+pub fn health_check() -> impl Responder {
+    HttpResponse::Ok()
+}
 
 pub fn get_people_list() -> impl Responder {
     let conn = get_connection();
@@ -10,12 +15,13 @@ pub fn get_people_list() -> impl Responder {
     HttpResponse::Ok().json(people)
 }
 
-pub fn create_person(person_json: web::Json<models::Person>) -> impl Responder {
+pub fn create_person(person_json: web::Json<models::PersonReq>) -> impl Responder {
     let conn = get_connection();
-    let id = person_json.id.to_string();
+
+    let uuid = Uuid::new_v4().to_string();
     let name = &person_json.name;
 
-    handlers::create_person(conn, &id, &name);
+    handlers::create_person(conn, &uuid, &name);
     HttpResponse::NoContent()
 }
 
