@@ -34,8 +34,8 @@ fn main() {
             .route("/health", web::get().to(responders::health_check))
             .route("/people", web::get().to(responders::get_people_list))
             .route("/people", web::post().to(responders::create_person))
-            .route("/people", web::put().to(responders::update_person_by_id))
             .route("/people/{id}", web::get().to(responders::get_person_by_id))
+            .route("/people", web::put().to(responders::update_person_by_id))
             .route(
                 "/people/{id}",
                 web::delete().to(responders::delete_person_by_id),
