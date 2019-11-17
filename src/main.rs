@@ -36,10 +36,7 @@ fn main() {
             .route("/people", web::post().to(responders::create_person))
             .route("/people/{id}", web::get().to(responders::get_person_by_id))
             .route("/people", web::put().to(responders::update_person_by_id))
-            .route(
-                "/people/{id}",
-                web::delete().to(responders::delete_person_by_id),
-            )
+            .route("/people", web::delete().to(responders::delete_person_by_id))
     })
     .bind("127.0.0.1:8088")
     .unwrap()
