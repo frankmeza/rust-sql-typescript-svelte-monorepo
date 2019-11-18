@@ -3,12 +3,13 @@ use postgres::Connection;
 
 pub fn fetch_people_list(conn: Connection) -> Vec<Person> {
     let mut people = Vec::new();
-    let q = queries::get_name_id_people();
+    let q = queries::get_people();
 
     for row in &conn.query(&q, &[]).expect("ERROR: fetch_people_list") {
         let person = Person {
             id: row.get(0),
             name: row.get(1),
+            ts: row.get(2),
         };
 
         people.push(person);
@@ -21,6 +22,7 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
     let mut person = Person {
         id: "".to_string(),
         name: String::from(""),
+        ts: 0,
     };
 
     let q = queries::get_name_id_person(id);
@@ -29,6 +31,7 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
         let p = Person {
             id: row.get(0),
             name: row.get(1),
+            ts: row.get(2),
         };
 
         person = p;
@@ -37,8 +40,8 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
     person
 }
 
-pub fn create_person(conn: Connection, id: &str, name: &str) {
-    let q = queries::create_person(id, name);
+pub fn create_person(conn: Connection, id: &str, name: &str, timestamp: u64) {
+    let q = queries::create_person(id, name, timestamp);
     &conn.execute(&q, &[]).expect("ERROR: create_person");
 }
 

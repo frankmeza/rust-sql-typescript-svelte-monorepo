@@ -14,4 +14,5 @@ pub struct PersonReq {
 pub struct Person {
     pub id: String,
     pub name: String,
+    pub ts: i64,
 }
