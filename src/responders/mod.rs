@@ -2,6 +2,7 @@ use crate::get_connection;
 use crate::handlers;
 use crate::models;
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
+use std::time::{SystemTime, UNIX_EPOCH};
 use uuid::Uuid;
 
 pub fn health_check() -> impl Responder {
@@ -18,10 +19,15 @@ pub fn get_people_list() -> impl Responder {
 pub fn create_person(person_json: web::Json<models::PersonReq>) -> impl Responder {
     let conn = get_connection();
 
+    let timestamp = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+
     let uuid = Uuid::new_v4().to_string();
     let name = &person_json.name;
 
-    handlers::create_person(conn, &uuid, &name);
+    handlers::create_person(conn, &uuid, &name, timestamp);
     HttpResponse::NoContent()
 }
 
