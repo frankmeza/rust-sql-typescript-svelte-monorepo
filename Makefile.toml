@@ -1,0 +1,12 @@
+[tasks.start-client]
+script = [
+    "cd client/",
+    "npm start"
+]
+
+[tasks.start-server]
+script = [
+    "cargo build",
+    "cargo run"
+]
+
