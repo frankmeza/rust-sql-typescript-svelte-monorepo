@@ -43,6 +43,8 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
 pub fn create_person(conn: Connection, id: &str, name: &str, timestamp: u64) {
     let q = queries::create_person(id, name, timestamp);
     &conn.execute(&q, &[]).expect("ERROR: create_person");
+    // handle error here
+    // return eithere error, or Ok(())
 }
 
 pub fn update_person_by_id(conn: Connection, id: &str, name: &str) {
