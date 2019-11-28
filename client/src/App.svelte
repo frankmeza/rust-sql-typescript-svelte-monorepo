@@ -10,7 +10,7 @@
     const RESET = "reset"
 
     // variables
-    let people: Array<Person> = []
+    let people: Person[] = []
 
     // async handlers
     const handleClick = async () => {
