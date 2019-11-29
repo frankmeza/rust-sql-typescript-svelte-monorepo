@@ -1,12 +1,13 @@
-[tasks.start-client]
-script = [
-    "cd client/",
-    "npm start"
-]
-
+# run in an open a new terminal window/tab to start the Rust server
 [tasks.start-server]
 script = [
     "cargo build",
     "cargo run"
 ]
 
+# run in an open a new terminal window/tab to start the Typescript client
+[tasks.start-client]
+script = [
+    "cd client/",
+    "npm start"
+]
