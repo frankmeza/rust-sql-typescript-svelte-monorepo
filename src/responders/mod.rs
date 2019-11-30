@@ -1,13 +1,33 @@
 use crate::get_connection;
 use crate::handlers;
 use crate::models;
-use crate::ws_server;
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
-// use actix::StreamHandler;
 use std::time::{SystemTime, UNIX_EPOCH};
 use uuid::Uuid;
+use crate::ws_server;
+use actix_web_actors::ws;
+use actix::prelude::*;
 
-pub fn health_check() -> impl Responder {
+pub struct AppMessenger;
+pub struct AppMessage(String);
+
+impl Message for AppMessage {
+    type Result = Result<AppMessage, Error>;
+}
+
+impl Actor for AppMessenger {
+    // type Result = Result<String, Error>;
+    type Context = SyncContext<Self>;
+    // type Context = actix_web_actors::ws::WebsocketContext<Self>;
+}
+
+
+
+pub fn health_check(req: web::Json<AppMessenger>) -> impl Responder {
+    let ct = ws::WebsocketContext::create_with_addr(
+        req,
+        ws_server::WebSocket,
+    );
     HttpResponse::Ok()
 }
 

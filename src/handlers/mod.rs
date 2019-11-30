@@ -1,7 +1,36 @@
 use crate::{models::Person, queries};
+// use crate::ws_server;
+use actix::prelude::*;
+use actix::{Actor}; // , Context, StreamHandler};
+use actix_web::{Error};
+// use actix_web_actors::ws;
+
 use postgres::Connection;
 
+pub struct AppMessenger;
+pub struct AppMessage(String);
+
+impl Message for AppMessage {
+    type Result = Result<AppMessage, Error>;
+}
+
+impl Actor for AppMessenger {
+    // type Result = Result<String, Error>;
+    type Context = SyncContext<Self>;
+    // type Context = actix_web_actors::ws::WebsocketContext<Self>;
+}
+
+
 pub fn fetch_people_list(conn: Connection) -> Vec<Person> {
+    // let system = System::new("ws");
+    //     // let address = ws_server::WebSocket.start();
+    // let ct = ws::WebsocketContext::create(
+    //     ws_server::WebSocket,
+    //     ws::Ws
+
+    //     });
+    // );
+    // let address = SyncArbiter::start(2, || ws_server::WebSocket);
     let mut people = Vec::new();
     let q = queries::get_people();
 
