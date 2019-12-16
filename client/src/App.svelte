@@ -1,13 +1,14 @@
 <script lang="ts">
     import { ws } from "./ws_client"
     import { Person } from "./core"
-    import { getPeople } from "utils/app_utils"
     import { mailboxStore } from "./stores"
-
+    import { getPeople } from "utils/app_utils"
+    import AddPerson from "./add_person.svelte"
     // constants
-    const PEOPLE_DATABASE = "People Database"
-    const BUTTON_TEXT = "GET /people"
-    const RESET = "reset"
+    const nil: null = null // the ts linter throws a first false error on typings
+    const PEOPLE_DATABASE: string = "People Database"
+    const BUTTON_TEXT: string = "GET /people"
+    const RESET: string = "reset"
 
     // variables
     let people: Person[] = []
@@ -38,6 +39,8 @@
 
 <button on:click={handleClick}>{BUTTON_TEXT}</button>
 <button on:click={handleClickReset}>{RESET}</button>
+
+<AddPerson/>
 
 {#if people.length === 0}
     <p>ain't nobody here yet</p>
