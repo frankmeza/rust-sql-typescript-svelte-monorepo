@@ -33,6 +33,8 @@
     }
 </script>
 
+<AddPerson/>
+
 <h1>{PEOPLE_DATABASE}</h1>
 
 <p>{$mailboxStore.messages}</p>
@@ -40,7 +42,6 @@
 <button on:click={handleClick}>{BUTTON_TEXT}</button>
 <button on:click={handleClickReset}>{RESET}</button>
 
-<AddPerson/>
 
 {#if people.length === 0}
     <p>ain't nobody here yet</p>
