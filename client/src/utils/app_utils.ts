@@ -12,6 +12,7 @@ const buildRequest = (method: RequestMethod, body: RequestBody) => ({
 	method,
 })
 
+// TODO add error handling
 export async function getPeople(): Promise<Person[]> {
 	const response = await fetch(`${BASE_URL}/people`)
 	const people: Person[] = await response.json()
@@ -19,6 +20,7 @@ export async function getPeople(): Promise<Person[]> {
 	return people
 }
 
+// TODO add error handling
 export async function getPersonById(id: string): Promise<Person> {
 	const reqBody = { id }
 	const request = buildRequest("POST", reqBody)
@@ -29,20 +31,29 @@ export async function getPersonById(id: string): Promise<Person> {
 	return person
 }
 
-export async function updatePersonById(person: Person): Promise<string | null> {
+export async function createPerson(name: string): Promise<string> {
+    const reqBody = ({ name })
+
+    const request = buildRequest("POST", reqBody)
+    const response = await fetch(`${BASE_URL}/people`, request)
+
+    return response.ok ? "ok" : response.statusText
+}
+
+export async function updatePersonById(person: Person): Promise<string> {
 	const { id, name } = person
 	const reqBody = JSON.stringify({ id, name })
 
 	const request = buildRequest("PUT", reqBody)
 	const response = await fetch(`${BASE_URL}/people`, request)
 
-	return response.ok ? null : response.statusText
+	return response.ok ? "ok" : response.statusText
 }
 
-export async function deletePersonById(id: string): Promise<string | null> {
+export async function deletePersonById(id: string): Promise<string> {
 	const reqBody = { id }
 	const request = buildRequest("DELETE", reqBody)
 	const response = await fetch(`${BASE_URL}/people`, request)
 
-	return response.ok ? null : response.statusText
+	return response.ok ? "ok" : response.statusText
 }
