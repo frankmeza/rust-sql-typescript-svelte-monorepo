@@ -2,7 +2,7 @@
     import { ws } from "./ws_client"
     import { createPerson } from "utils/app_utils"
     // constants
-    const nil: null = null // the ts linter throws a first false error
+    const nil: null = null // the ts linter throws a first false error on typings
     const BUTTON_TEXT: string = "add record"
 
     // variables
