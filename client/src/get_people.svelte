@@ -6,7 +6,7 @@
     import { constants } from "./constants"
     import { getPeople } from "utils/app_utils"
 
-    const { BUTTON_TEXT, GET_PEOPLE, RESET } = constants
+    const { GET_RECORDS, RESET } = constants
 
     export let people: Person[] = []
 
@@ -27,11 +27,11 @@
     }
 </script>
 
-<h2>{GET_PEOPLE}</h2>
+<h2>{GET_RECORDS}</h2>
 
 <p>{$mailboxStore.messages}</p>
 
-<button on:click={handleClick}>{BUTTON_TEXT}</button>
+<button on:click={handleClick}>{GET_RECORDS}</button>
 <button on:click={handleClickReset}>{RESET}</button>
 
 {#if people.length === 0}
