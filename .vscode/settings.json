@@ -1,3 +1,9 @@
 {
-    "git.ignoreLimitWarning": true
+    "eslint.validate": [
+        "javascript",
+        "svelte",
+        "typescript",
+    ],
+    "git.ignoreLimitWarning": true,
+    "svelte.plugin.typescript.enable": true,
 }

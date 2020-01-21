@@ -1,3 +1,7 @@
+.eslintrc.json
+.vscode/**
+.prettierrc
+
 .rpt2_cache
 build
 
