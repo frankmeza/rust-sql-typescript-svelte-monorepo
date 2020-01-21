@@ -14,7 +14,7 @@ export const constants = {
     ADD_RECORD,
     UPDATE_RECORD,
     DELETE_RECORD,
-	PEOPLE_DATABASE: "People Database",
+	GET_PEOPLE: "Get People",
 	BUTTON_TEXT: "GET /people",
 	RESET: "reset client",
 }

@@ -6,15 +6,15 @@ const headers = { "Content-Type": "application/json" }
 type RequestMethod = "POST" | "PUT" | "DELETE"
 
 interface RequestBody {
-    readonly id: string
-    readonly name: string
-    readonly ts: number
+	readonly id: string
+	readonly name: string
+	readonly ts: number
 }
 
 interface AppRequest {
-    readonly body: string
-    readonly headers: {}
-    readonly method: RequestMethod
+	readonly body: string
+	readonly headers: {}
+	readonly method: RequestMethod
 }
 
 const buildRequest = (method: RequestMethod, body: Partial<RequestBody>): AppRequest => ({
@@ -43,39 +43,39 @@ export async function getPersonById(id: string): Promise<Person> {
 }
 
 const statusReturnHelper = (rs: Response): string => {
-    if (rs.ok) {
-        console.log("operation successful 👍")
-        return "ok"
-    } else {
-        console.log(`very virus: ${rs}`)
-        return rs.statusText
-    }
+	if (rs.ok) {
+		console.log("operation successful 👍")
+		return "ok"
+	} else {
+		console.log(`very virus: ${rs}`)
+		return rs.statusText
+	}
 }
 
 export async function createPerson(name: string): Promise<string> {
-    const reqBody: Partial<RequestBody> = ({ name })
+	const reqBody: Partial<RequestBody> = { name }
 
-    const request = buildRequest("POST", reqBody)
-    const response = await fetch(`${BASE_URL}/people`, request)
+	const request = buildRequest("POST", reqBody)
+	const response = await fetch(`${BASE_URL}/people`, request)
 
-    return statusReturnHelper(response)
+	return statusReturnHelper(response)
 }
 
 export async function updatePersonById(person: Person): Promise<string> {
 	const { id, name } = person
-	const reqBody: Partial<RequestBody> = ({ id, name, ts: Date.now() })
+	const reqBody: Partial<RequestBody> = { id, name, ts: Date.now() }
 
 	const request = buildRequest("PUT", reqBody)
-    const response = await fetch(`${BASE_URL}/people`, request)
+	const response = await fetch(`${BASE_URL}/people`, request)
 
-    return statusReturnHelper(response)
+	return statusReturnHelper(response)
 }
 
 export async function deletePersonById(id: string): Promise<string> {
-	const reqBody: Partial<RequestBody>  = { id }
+	const reqBody: Partial<RequestBody> = { id }
 
-    const request = buildRequest("DELETE", reqBody)
+	const request = buildRequest("DELETE", reqBody)
 	const response = await fetch(`${BASE_URL}/people`, request)
 
-    return statusReturnHelper(response)
+	return statusReturnHelper(response)
 }

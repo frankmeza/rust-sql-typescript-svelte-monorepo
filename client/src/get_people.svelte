@@ -6,7 +6,7 @@
     import { constants } from "./constants"
     import { getPeople } from "utils/app_utils"
 
-    const { BUTTON_TEXT, PEOPLE_DATABASE, RESET } = constants
+    const { BUTTON_TEXT, GET_PEOPLE, RESET } = constants
 
     export let people: Person[] = []
 
@@ -27,7 +27,7 @@
     }
 </script>
 
-<h1>{PEOPLE_DATABASE}</h1>
+<h2>{GET_PEOPLE}</h2>
 
 <p>{$mailboxStore.messages}</p>
 
