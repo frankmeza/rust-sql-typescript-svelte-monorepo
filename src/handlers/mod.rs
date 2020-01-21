@@ -4,7 +4,6 @@ use postgres::Connection;
 pub fn fetch_people_list(conn: Connection) -> Vec<Person> {
     let mut people = Vec::new();
     let q = queries::get_people();
-
     let rows = &conn.query(&q, &[]);
 
     match rows {
@@ -35,7 +34,6 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
     };
 
     let q = queries::get_name_id_person(id);
-
     let rows = &conn.query(&q, &[]);
 
     match rows {

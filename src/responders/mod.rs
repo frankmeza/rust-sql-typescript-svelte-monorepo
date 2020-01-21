@@ -33,9 +33,17 @@ pub fn create_person(person_json: web::Json<models::PersonReq>) -> impl Responde
 
 pub fn get_person_by_id(req: HttpRequest) -> impl Responder {
     let conn = get_connection();
-    let id = req.match_info().get("id").expect("ERROR: get by id");
-    let person = handlers::fetch_person_by_id(conn, id);
+    let id_option = req.match_info().get("id");
+    let mut id = String::new();
 
+    match id_option {
+        None => println!("get_person_by_id id_option very virus"),
+        Some(option) => {
+            id = String::from(option);
+        }
+    }
+
+    let person = handlers::fetch_person_by_id(conn, &id);
     HttpResponse::Ok().json(person)
 }
 
