@@ -5,14 +5,23 @@ pub fn fetch_people_list(conn: Connection) -> Vec<Person> {
     let mut people = Vec::new();
     let q = queries::get_people();
 
-    for row in &conn.query(&q, &[]).expect("ERROR: fetch_people_list") {
-        let person = Person {
-            id: row.get(0),
-            name: row.get(1),
-            ts: row.get(2),
-        };
+    let rows = &conn.query(&q, &[]);
 
-        people.push(person);
+    match rows {
+        Ok(rows) => {
+            for row in rows {
+                let person = Person {
+                    id: row.get(0),
+                    name: row.get(1),
+                    ts: row.get(2),
+                };
+
+                people.push(person);
+            }
+        }
+        Err(err) => {
+            println!("rows in fetch_people_list very virus: {:?}", err);
+        }
     }
 
     people
@@ -27,14 +36,23 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
 
     let q = queries::get_name_id_person(id);
 
-    for row in &conn.query(&q, &[]).expect("ERROR: fetch_person_by_id") {
-        let p = Person {
-            id: row.get(0),
-            name: row.get(1),
-            ts: row.get(2),
-        };
+    let rows = &conn.query(&q, &[]);
 
-        person = p;
+    match rows {
+        Ok(rows) => {
+            for row in rows {
+                let p = Person {
+                    id: row.get(0),
+                    name: row.get(1),
+                    ts: row.get(2),
+                };
+
+                person = p;
+            }
+        }
+        Err(err) => {
+            println!("rows in fetch_person_by_id very virus: {:?}", err);
+        }
     }
 
     person
@@ -42,15 +60,36 @@ pub fn fetch_person_by_id(conn: Connection, id: &str) -> Person {
 
 pub fn create_person(conn: Connection, id: &str, name: &str, timestamp: u64) {
     let q = queries::create_person(id, name, timestamp);
-    &conn.execute(&q, &[]).expect("ERROR: create_person");
+    let rows = &conn.query(&q, &[]);
+
+    match rows {
+        Ok(_rows) => (),
+        Err(err) => {
+            println!("rows in create_person very virus: {:?}", err);
+        }
+    }
 }
 
 pub fn update_person_by_id(conn: Connection, id: &str, name: &str) {
     let q = queries::update_person_by_id(id, name);
-    &conn.execute(&q, &[]).expect("ERROR: update_person_by_id");
+    let rows = &conn.query(&q, &[]);
+
+    match rows {
+        Ok(_rows) => (),
+        Err(err) => {
+            println!("rows in update_person_by_id very virus: {:?}", err);
+        }
+    }
 }
 
 pub fn delete_person_by_id(conn: Connection, id: &str) {
     let q = queries::delete_person_by_id(id);
-    &conn.query(&q, &[]).expect("ERROR: delete_person_by_id");
+    let rows = &conn.query(&q, &[]);
+
+    match rows {
+        Ok(_rows) => (),
+        Err(err) => {
+            println!("rows in delete_person_by_id very virus: {:?}", err);
+        }
+    }
 }
