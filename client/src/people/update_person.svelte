@@ -9,11 +9,12 @@
 
     // async handlers
     const handleClick = async () => {
-    const response = await updatePersonById({
+        const response = await updatePersonById({
             id,
             ts: Date.now(),
             name: newName,
         })
+
         console.log(response)
     }
 </script>
