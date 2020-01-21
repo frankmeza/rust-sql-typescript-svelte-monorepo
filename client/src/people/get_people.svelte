@@ -1,9 +1,9 @@
-<script lang="ts">
-    import { ws } from "./ws_client"
-    import { Person } from "./core"
-    import { mailboxStore } from "./stores"
+<script lang="typescript">
+    import { ws } from "../ws_client"
+    import { Person } from "../core"
+    import { mailboxStore } from "../stores"
 
-    import { constants } from "./constants"
+    import { constants } from "../constants"
     import { getPeople } from "utils/app_utils"
 
     const { GET_RECORDS, RESET } = constants

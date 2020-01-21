@@ -1,7 +1,7 @@
-<script lang="ts">
-    import { ws } from "./ws_client"
-    import { createPerson } from "utils/app_utils"
-    import { constants } from "./constants"
+<script lang="typescript">
+    import { ws } from "../ws_client"
+    import { createPerson } from "../utils/app_utils"
+    import { constants } from "../constants"
 
     const { ADD_RECORD } = constants
 
