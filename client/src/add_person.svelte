@@ -1,21 +1,17 @@
 <script lang="ts">
-  import { ws } from "./ws_client";
-  import { createPerson } from "utils/app_utils";
-  import { constants } from "./constants";
-  // constants
-  // the ts linter throws a first false error on typings
-  const nil: null = null;
-  const { ADD_RECORD } = constants;
+    import { ws } from "./ws_client"
+    import { createPerson } from "utils/app_utils"
+    import { constants } from "./constants"
 
-  // variables
-  let name: string = "";
-  let response: string = "";
+    const { ADD_RECORD } = constants
 
-  // async handlers
-  const handleClick = async () => {
-    response = await createPerson(name);
-    console.log(response);
-  };
+    let name: string = ""
+    let response: string = ""
+
+    const handleClick = async () => {
+        response = await createPerson(name)
+        console.log(response)
+    }
 </script>
 
 <h2>Add A Person</h2>

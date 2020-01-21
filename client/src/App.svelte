@@ -3,12 +3,13 @@
     import { Person } from "./core"
     import { mailboxStore } from "./stores"
     import { getPeople } from "utils/app_utils"
+    import DeletePerson from "./delete_person.svelte"
+    import UpdatePerson from "./update_person.svelte"
     import AddPerson from "./add_person.svelte"
+    import { constants } from "./constants"
+
     // constants
-    const nil: null = null // the ts linter throws a first false error on typings
-    const PEOPLE_DATABASE: string = "People Database"
-    const BUTTON_TEXT: string = "GET /people"
-    const RESET: string = "reset"
+    const { PEOPLE_DATABASE, BUTTON_TEXT, RESET } = constants
 
     // variables
     let people: Person[] = []
@@ -33,7 +34,9 @@
     }
 </script>
 
-<AddPerson/>
+<AddPerson />
+<UpdatePerson />
+<DeletePerson />
 
 <h1>{PEOPLE_DATABASE}</h1>
 
@@ -41,7 +44,6 @@
 
 <button on:click={handleClick}>{BUTTON_TEXT}</button>
 <button on:click={handleClickReset}>{RESET}</button>
-
 
 {#if people.length === 0}
     <p>ain't nobody here yet</p>

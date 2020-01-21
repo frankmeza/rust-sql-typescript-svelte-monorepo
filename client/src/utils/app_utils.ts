@@ -8,6 +8,7 @@ type RequestMethod = "POST" | "PUT" | "DELETE"
 interface RequestBody {
     readonly id: string
     readonly name: string
+    readonly ts: number
 }
 
 interface AppRequest {
@@ -43,10 +44,10 @@ export async function getPersonById(id: string): Promise<Person> {
 
 const statusReturnHelper = (rs: Response): string => {
     if (rs.ok) {
-        console.log(`${name} was created 👍`)
+        console.log("operation successful 👍")
         return "ok"
     } else {
-        console.log(`things is bad very virus, look ${rs}`)
+        console.log(`very virus: ${rs}`)
         return rs.statusText
     }
 }
@@ -62,7 +63,7 @@ export async function createPerson(name: string): Promise<string> {
 
 export async function updatePersonById(person: Person): Promise<string> {
 	const { id, name } = person
-	const reqBody: Partial<RequestBody> = ({ id, name })
+	const reqBody: Partial<RequestBody> = ({ id, name, ts: Date.now() })
 
 	const request = buildRequest("PUT", reqBody)
     const response = await fetch(`${BASE_URL}/people`, request)
