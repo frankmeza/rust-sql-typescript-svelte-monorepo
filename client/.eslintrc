@@ -1,0 +1,36 @@
+{
+    "env": {
+        "browser": true,
+        "es2017": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2019,
+        "sourceType": "module"
+    },
+    "extends": [
+        "eslint:recommended"
+    ],
+    "plugins": [
+        "svelte3"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "**/*.svelte"
+            ],
+            "processor": "svelte3/svelte3"
+        }
+    ],
+    "ignorePatterns": ["build/"],
+    "rules": {
+        "no-var": "error",
+        "semi": "off",
+        "printWidth": 2,
+        "tabWidth": 4,
+        "max-params": "off",
+        "eqeqeq": "error"
+    },
+    "settings": {
+        "svelte3/ignore-warnings": true
+    }
+}

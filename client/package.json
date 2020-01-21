@@ -29,6 +29,7 @@
         "chokidar": "3.0.1",
         "cross-env": "5.2.0",
         "deasync": "0.1.15",
+        "eslint-plugin-svelte3": "^2.7.3",
         "jest": "24.8.0",
         "rimraf": "2.6.3",
         "rollup": "1.16.1",
