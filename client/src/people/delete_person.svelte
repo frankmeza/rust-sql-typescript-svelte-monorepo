@@ -3,6 +3,7 @@
     import { constants } from "../constants"
 
     const { DELETE_RECORD } = constants
+    const nil: null = null
 
     let id: string = ""
     let response: string = ""

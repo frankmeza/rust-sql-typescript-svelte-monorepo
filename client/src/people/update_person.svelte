@@ -3,6 +3,7 @@
     import { updatePersonById } from "../utils/app_utils"
 
     const { UPDATE_RECORD } = constants
+    const nil: null = null
 
     let id: string = ""
     let name: string = ""

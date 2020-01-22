@@ -3,6 +3,7 @@
     import { constants } from "../constants"
 
     const { ADD_RECORD } = constants
+    const nil: null = null
 
     let name: string = ""
     let response: string = ""
