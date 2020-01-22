@@ -5,15 +5,11 @@
     const { UPDATE_RECORD } = constants
 
     let id: string = ""
-    let newName: string = ""
+    let name: string = ""
 
-    // async handlers
     const handleClick = async () => {
-        const response = await updatePersonById({
-            id,
-            ts: Date.now(),
-            name: newName,
-        })
+        const ts = Date.now()
+        const response = await updatePersonById({ id, name, ts })
 
         console.log(response)
     }
@@ -22,5 +18,5 @@
 <h2>Update A Person By ID</h2>
 
 <input bind:value={id} placeholder="enter existing ID" />
-<input bind:value={newName} placeholder="enter new name" />
-<button on:click={handleClick}>{UPDATE_RECORD(newName)}</button>
+<input bind:value={name} placeholder="enter new name" />
+<button on:click={handleClick}>{UPDATE_RECORD(name)}</button>

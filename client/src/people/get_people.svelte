@@ -1,5 +1,4 @@
 <script lang="typescript">
-    import { ws } from "../ws_client"
     import { Person } from "../core"
     import { mailboxStore } from "../stores"
 
